@@ -1,0 +1,12 @@
+## Cambiar el nombre de la cuenta ##
+
+net user PC4005 /fullname:"Nombre"
+
+## Cambiar el comentario de la cuenta UAC ##
+
+net user PC4005 /comment:"Description"
+
+## Establecer que nunca expire un password ##
+
+net user Administrador /expires:never
+net user User /expires:never
