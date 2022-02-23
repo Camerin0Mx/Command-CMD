@@ -1,0 +1,1 @@
+wmic useraccount where name='PC0x0x' rename 'PC1234'
