@@ -10,3 +10,5 @@ net user PC4005 /comment:"Description"
 
 net user Administrador /expires:never
 net user User /expires:never
+
+net accounts /maxpwage:unlimited
