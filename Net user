@@ -12,3 +12,50 @@ net user Administrador /expires:never
 net user User /expires:never
 
 net accounts /maxpwage:unlimited
+
+
+@echo off
+title Información del Sistema + Sincronización de Hora
+color 0A
+
+echo ==========================
+echo INFORMACIÓN DEL SISTEMA
+echo ==========================
+echo.
+
+:: Nombre del equipo y usuario
+echo Nombre del Equipo: %COMPUTERNAME%
+echo Usuario actual: %USERNAME%
+
+:: Versión de Windows
+echo.
+echo Versión de Windows:
+ver
+
+:: Detalles del sistema operativo
+echo.
+systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
+
+:: Fabricante, modelo y número de serie
+echo.
+echo Información del BIOS y del sistema:
+wmic computersystem get manufacturer, model
+wmic bios get serialnumber
+
+:: Sincronizar la hora automáticamente con servidor NTP
+echo.
+echo Sincronizando la hora con el servidor de Internet...
+
+:: Reiniciar y forzar el servicio de hora
+net stop w32time >nul 2>&1
+net start w32time >nul 2>&1
+w32tm /resync
+
+if %errorlevel%==0 (
+    echo Hora sincronizada correctamente.
+) else (
+    echo No se pudo sincronizar la hora. Verifica la conexión a Internet o ejecuta como administrador.
+)
+
+echo.
+pause
